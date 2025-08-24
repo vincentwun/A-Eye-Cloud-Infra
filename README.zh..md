@@ -19,9 +19,6 @@
 ### GCP 架構
 ![GCP Infrastructure](images/gcp_infra.png)
 
-### Azure 架構
-![Azure Infrastructure](images/azure_infra.png)
-
 ---
 
 ## 快速開始
