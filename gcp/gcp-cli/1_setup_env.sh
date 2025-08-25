@@ -1,7 +1,7 @@
 # Setup env
 export FUNCTION_NAME="gemini-proxy-function"
 export REGION="us-central1"
-export PROJECT_ID="api-gateway-gemini-proxy"
+export PROJECT_ID="a-eye-gemini-proxy"
 export NODE_RUNTIME="nodejs20"
 export API_ID="gemini-proxy-api"
 export API_CONFIG_ID="gemini-proxy-config-v1"
