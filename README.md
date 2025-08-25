@@ -1,4 +1,4 @@
-# A-Eye Cloud Infra
+# A-Eye Web Chat Assistant Cloud Infra
 
 This project provides infrastructure code and deployment guides for the [A-Eye Web Chat Assistant](https://github.com/vincentwun/A-Eye-Web-Chat-Assistant) Chrome extension on public cloud platforms.  
 You can quickly deploy serverless backends, API Gateways, and related resources using mainstream clouds such as Google Cloud Platform (GCP) and Microsoft Azure.

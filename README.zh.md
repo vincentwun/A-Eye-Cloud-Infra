@@ -1,4 +1,4 @@
-# A-Eye Cloud Infra
+# A-Eye Web Chat Assistant Cloud Infra
 
 本專案提供 [A-Eye Web Chat Assistant](https://github.com/vincentwun/A-Eye-Web-Chat-Assistant) Chrome 擴充套件的公有雲端基礎建設程式碼及部署教學。  
 你可用 Google Cloud Platform (GCP)、Microsoft Azure 等主流雲端，快速部署 Serverless 後端、API Gateway 及相關資源。
