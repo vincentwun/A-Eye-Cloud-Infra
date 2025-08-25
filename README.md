@@ -10,27 +10,31 @@ You can quickly deploy serverless backends, API Gateways, and related resources 
 ## Features
 
 - **GCP Infrastructure**: Deployment scripts for API Gateway, Cloud Functions, and Vertex AI integration.
-- **Azure Infrastructure**: Coming soon.
+- **Azure Infrastructure**: Deployment scripts for Azure API Management, Azure Functions, and Azure AI Foundry.
 - **Secure API Proxy**: Securely proxies requests between the Chrome extension and cloud AI models.
 - **Key Management**: Guidance for secure management of API keys and access credentials.
 
 ---
 
-## Architecture Diagrams
+## Prerequisites
+
+For the safest and latest installation, please refer to the official guides for CLI tools:
+
+- [Azure CLI](https://learn.microsoft.com/zh-tw/cli/azure/install-azure-cli-linux?view=azure-cli-latest&pivots=apt)
+- [Google Cloud CLI (gcloud)](https://cloud.google.com/sdk/docs/install?hl=zh-tw)
+- [Terraform](https://developer.hashicorp.com/terraform/install#linux)
+
+---
+
+## GCP
 
 ### GCP Architecture
 ![GCP Infrastructure](images/gcp_infra.png)
 
 ---
 
-### Azure Architecture
-![Azure Infrastructure](images/azure_infra.png)
-
----
-
-## Quick Start
-
-### GCP CLI Deployment Guide
+<details>
+<summary>GCP CLI Deployment Guide</summary>
 
 1. Enter the GCP CLI directory:
     ```bash
@@ -57,9 +61,12 @@ You can quickly deploy serverless backends, API Gateways, and related resources 
     ```
     - Obtain the API Gateway Endpoint and API Key, and fill them in the Chrome extension settings.
 
+</details>
+
 ---
 
-### Terraform Deployment Guide
+<details>
+<summary>GCP Terraform Deployment Guide</summary>
 
 1. Enter the Terraform directory:
     ```bash
@@ -79,21 +86,32 @@ You can quickly deploy serverless backends, API Gateways, and related resources 
     ./2_destroy.sh
     ```
 
+</details>
+
 ---
 
-### Azure Deployment Guide
+## Azure
+
+### Azure Architecture
+![Azure Infrastructure](images/azure_infra.png)
+
+---
+
+<details>
+<summary>Azure CLI Deployment Guide</summary>
 
 (Coming soon)
 
+</details>
+
 ---
 
-## Prerequisites
+<details>
+<summary>Azure Terraform Deployment Guide</summary>
 
-For the safest and latest installation, please refer to the official guides for CLI tools:
+(Coming soon)
 
-- [Azure CLI Official Installation Guide](https://learn.microsoft.com/zh-tw/cli/azure/install-azure-cli-linux?view=azure-cli-latest&pivots=apt)
-- [gcloud CLI Official Installation Guide](https://cloud.google.com/sdk/docs/install?hl=zh-tw)
-- [Terraform Official Installation Guide](https://developer.hashicorp.com/terraform/install#linux)
+</details>
 
 ---
 

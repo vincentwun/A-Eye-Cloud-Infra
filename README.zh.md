@@ -10,42 +10,46 @@
 ## 功能特色
 
 - **GCP Infrastructure**：API Gateway、Cloud Functions、Vertex AI 整合部署腳本。
-- **Azure Infrastructure**：即將推出。
+- **Azure Infrastructure**：Azure API Management、Azure Functions 與 Azure AI Foundry 部署範例。
 - **安全 API Proxy**：安全代理 Chrome 擴充套件與雲端 AI 模型的請求。
 - **金鑰管理**：API 金鑰及存取憑證安全管理指引。
 
 ---
 
-## 架構圖
+## 安裝前置需求
 
-### GCP 架構
+請參考官方教學安裝並登入所需 CLI 工具（以取得最新且安全的安裝方式）：
+
+- [Azure CLI](https://learn.microsoft.com/zh-tw/cli/azure/install-azure-cli-linux?view=azure-cli-latest&pivots=apt)
+- [Google Cloud CLI (gcloud)](https://cloud.google.com/sdk/docs/install?hl=zh-tw)
+- [Terraform](https://developer.hashicorp.com/terraform/install#linux)
+
+---
+
+## GCP
+
+### GCP 架構圖
 ![GCP Infrastructure](images/gcp_infra.png)
 
 ---
 
-### Azure 架構
-![Azure Infrastructure](images/azure_infra.png)
+<details>
+<summary>GCP CLI 部署教學</summary>
 
----
-
-## 快速開始
-
-### GCP CLI 部署教學
-
-1. 進入 GCP CLI 目錄：
+1. 進入 GCP CLI 目錄並授權腳本：
     ```bash
     cd gcp/gcp-cli
     chmod +x ./*.sh
     ```
 
 2. 編輯並載入環境變數：
-    - 修改 `1_setup_env.sh`，填入你的 `BILLING_ACCOUNT_ID`。
+    - 修改 `1_setup_env.sh`，填入你的 `BILLING_ACCOUNT_ID` 等必要參數。
     - 載入環境變數：
       ```bash
       source ./1_setup_env.sh
       ```
 
-3. 部署基礎建設並取得 Function URL：
+3. 部署基礎建設並取得 Cloud Function URL：
     ```bash
     ./2_deploy_infra.sh
     ```
@@ -55,11 +59,14 @@
     ```bash
     ./3_create_gateway_and_key.sh
     ```
-    - 取得 API Gateway Endpoint 及 API Key，分別填入 Chrome 擴充套件設定。
+    - 取得 API Gateway Endpoint 與 API Key，填入 Chrome 擴充套件的設定。
+
+</details>
 
 ---
 
-### Terraform 部署教學
+<details>
+<summary>GCP Terraform 部署教學</summary>
 
 1. 進入 Terraform 目錄：
     ```bash
@@ -67,33 +74,41 @@
     chmod +x ./*.sh
     ```
 
-2. 編輯 `variables.tf` 及 `api-config.yaml.tftpl`，設定你的 GCP 資訊。
+2. 編輯 `variables.tf` 及 `api-config.yaml.tftpl`，設定你的 GCP 專案、區域與金鑰等資訊。
 
-3. 建立資源：
+3. 初始化並建立資源：
     ```bash
     ./1_build.sh
     ```
 
-4. 若要移除資源：
+4. 移除資源：
     ```bash
     ./2_destroy.sh
     ```
 
----
-
-### Azure 部署教學
-
-（即將推出，敬請期待）
+建議：在 CI/CD 中使用 Terraform state lock、遠端 state（如 GCS）並將敏感參數放入 Secret Manager 或 CI 變數。
+</details>
 
 ---
 
-## 安裝前置需求
+## Azure
 
-請參考官方教學安裝 CLI 工具，確保取得最新版本及安全設定：
+### Azure 架構圖
+![Azure Infrastructure](images/azure_infra.png)
 
-- [Azure CLI 官方安裝教學](https://learn.microsoft.com/zh-tw/cli/azure/install-azure-cli-linux?view=azure-cli-latest&pivots=apt)
-- [gcloud CLI 官方安裝教學](https://cloud.google.com/sdk/docs/install?hl=zh-tw)
-- [Terraform 官方安裝教學](https://developer.hashicorp.com/terraform/install#linux)
+---
+
+<details>
+<summary>Azure CLI 指南</summary>
+（逐步補齊）
+</details>
+
+---
+
+<details>
+<summary>Azure Terraform 指南</summary>
+（逐步補齊）
+</details>
 
 ---
 
