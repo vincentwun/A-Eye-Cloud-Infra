@@ -23,6 +23,11 @@
 
 ---
 
+### Azure 架構
+![Azure Infrastructure](images/azure_infra.png)
+
+---
+
 ## 快速開始
 
 ### GCP CLI 部署教學

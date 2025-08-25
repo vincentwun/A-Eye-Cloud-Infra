@@ -23,6 +23,11 @@ You can quickly deploy serverless backends, API Gateways, and related resources 
 
 ---
 
+### Azure Architecture
+![Azure Infrastructure](images/azure_infra.png)
+
+---
+
 ## Quick Start
 
 ### GCP CLI Deployment Guide
