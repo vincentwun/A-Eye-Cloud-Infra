@@ -46,17 +46,16 @@ For the safest and latest installation, please refer to the official guides for 
     gcloud auth login --update-adc
     ```
 
-
-3. Set up Project ID:
-    ```bash
-    PROJECT_ID=a-eye-infra
-    export TF_VAR_project_id=$PROJECT_ID
-    ```
-
-4. Set up billing account:
+3. Set up billing account:
     ```bash
     gcloud beta billing accounts list
     Billing_Account_ID=<Your Billing Account ID>
+    ```
+
+4. Set up Project ID:
+    ```bash
+    PROJECT_ID=a-eye-infra
+    export TF_VAR_project_id=$PROJECT_ID
     ```
 
 5. Run build.sh
@@ -85,13 +84,13 @@ For the safest and latest installation, please refer to the official guides for 
 ## Azure
 
 ### Azure Architecture
-![Azure Infrastructure](images/azure_infra.png)
+(Coming Soon)
 
 ---
 
 ### Azure Terraform Deployment Guide
 
-(Coming soon)
+(Coming Soon)
 
 </details>
 
