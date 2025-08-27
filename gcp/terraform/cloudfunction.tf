@@ -25,9 +25,9 @@ resource "google_storage_bucket_object" "function_source_object" {
 
 # --- Cloud Function (Gen 2) ---
 resource "google_cloudfunctions2_function" "gemini_proxy" {
-  name        = var.function_name
-  location    = var.region
-  project     = var.project_id
+  name     = var.function_name
+  location = var.region
+  project  = var.project_id
 
   build_config {
     runtime     = var.node_runtime
@@ -41,11 +41,13 @@ resource "google_cloudfunctions2_function" "gemini_proxy" {
   }
 
   service_config {
-    max_instance_count = var.function_max_instances
-    available_memory   = var.function_memory
-    timeout_seconds    = var.function_timeout_seconds
-    ingress_settings   = "ALLOW_ALL"
+    max_instance_count             = var.function_max_instances
+    available_memory               = var.function_memory
+    timeout_seconds                = var.function_timeout_seconds
+    ingress_settings               = "ALLOW_ALL"
     all_traffic_on_latest_revision = true
+
+    service_account_email = google_service_account.fn_sa.email
   }
 
   depends_on = [

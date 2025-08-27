@@ -1,65 +1,47 @@
-# --- IAM Permissions ---
+# Function Service Account (SA): execution identity for Cloud Functions Gen2
+resource "google_service_account" "fn_sa" {
+  account_id   = "gemini-proxy-fn-sa"
+  display_name = "Gemini Proxy Function SA"
+}
 
-# Compute Engine SA: permission to call Vertex AI
-resource "google_project_iam_member" "compute_sa_vertex_ai_user" {
+# Vertex AI minimal access for Function SA: allow invoke Vertex AI (roles/aiplatform.user)
+resource "google_project_iam_member" "fn_sa_vertex_ai_user" {
   project = var.project_id
   role    = "roles/aiplatform.user"
-  member  = "serviceAccount:${data.google_project.project.number}-compute@developer.gserviceaccount.com"
-
-  depends_on = [google_project_service.aiplatform, google_project_service.iam]
-}
-
-# Compute Engine SA: the Editor role
-resource "google_project_iam_member" "compute_sa_editor" {
-  project = var.project_id
-  role    = "roles/editor"
-  member  = "serviceAccount:${data.google_project.project.number}-compute@developer.gserviceaccount.com"
-
-  depends_on = [google_project_service.iam]
-}
-
-# Compute Engine SA: the Project IAM Admin role
-resource "google_project_iam_member" "compute_sa_iam_admin" {
-  project = var.project_id
-  role    = "roles/resourcemanager.projectIamAdmin"
-  member  = "serviceAccount:${data.google_project.project.number}-compute@developer.gserviceaccount.com"
-
-  depends_on = [google_project_service.iam]
-}
-
-# API Gateway SA: Permission to invoke the Cloud Function
-resource "google_project_iam_member" "apigw_sa_run_invoker" {
-  project = var.project_id
-  role    = "roles/run.invoker"
-  member  = "serviceAccount:service-${data.google_project.project.number}@gcp-sa-apigateway.iam.gserviceaccount.com"
+  member  = "serviceAccount:${google_service_account.fn_sa.email}"
 
   depends_on = [
-    google_project_service.apigateway,
+    google_project_service.aiplatform,
+    google_project_service.iam
+  ]
+}
+
+# Grant API Gateway Service Agent resource-level Run Invoker on the CF Gen2 underlying Cloud Run service
+# Note: resource-level binding (not project-wide) to follow least-privilege
+resource "google_cloud_run_v2_service_iam_member" "fn_allow_apigw" {
+  project  = var.project_id
+  location = var.region
+  name     = google_cloudfunctions2_function.gemini_proxy.service_config.service
+  role     = "roles/run.invoker"
+  member   = "serviceAccount:service-${data.google_project.project.number}@gcp-sa-apigateway.iam.gserviceaccount.com"
+
+  depends_on = [
     google_project_service.run,
+    google_project_service.apigateway,
     google_project_service.iam,
     google_cloudfunctions2_function.gemini_proxy
   ]
 }
 
-# API Gateway SA: Permission for service usage checks
+# API Gateway Service Agent: consumer role for service usage checks and accounting
 resource "google_project_iam_member" "apigw_sa_serviceusage_consumer" {
   project = var.project_id
   role    = "roles/serviceusage.serviceUsageConsumer"
   member  = "serviceAccount:service-${data.google_project.project.number}@gcp-sa-apigateway.iam.gserviceaccount.com"
 
-  depends_on = [google_project_service.apigateway, google_project_service.serviceusage, google_project_service.iam]
-}
-
-# API Gateway SA: Permission to enable the managed service it creates
-resource "google_project_iam_member" "apigw_sa_serviceusage_admin" {
-  project = var.project_id
-  role    = "roles/serviceusage.serviceUsageAdmin"
-  member  = "serviceAccount:service-${data.google_project.project.number}@gcp-sa-apigateway.iam.gserviceaccount.com"
-
   depends_on = [
     google_project_service.apigateway,
     google_project_service.serviceusage,
-    google_project_service.iam,
-    data.google_project.project
+    google_project_service.iam
   ]
 }
