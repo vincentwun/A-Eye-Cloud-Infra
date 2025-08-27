@@ -37,7 +37,7 @@
 
 1. 進入 Terraform 目錄：
     ```bash
-    cd gcp/terraform
+    cd gcp
     chmod +x ./*.sh
     ```
 

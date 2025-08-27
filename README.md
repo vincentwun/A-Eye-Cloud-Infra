@@ -37,7 +37,7 @@ For the safest and latest installation, please refer to the official guides for 
 
 1. Enter the Terraform directory:
     ```bash
-    cd gcp/terraform
+    cd gcp
     chmod +x ./*.sh
     ```
 
