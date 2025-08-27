@@ -84,13 +84,52 @@ For the safest and latest installation, please refer to the official guides for 
 ## Azure
 
 ### Azure Architecture
-(Coming Soon)
+![Azure Infrastructure](images/azure_infra.png)
 
 ---
 
 ### Azure Terraform Deployment Guide
 
-(Coming Soon)
+(1. Enter the Terraform directory:
+    ```bash
+    cd azure/terraform
+    chmod +x ./*.sh
+    ```
+
+2. Login to Azure:
+    ```bash
+    az login --use-device-code
+    ```
+
+3. Set up Subscription :
+    ```bash
+    az account list --output table
+    SUBSCRIPTION_ID=<YOUR_SUBSCRIPTION_ID_OR_NAME>
+    az account set --subscription $SUBSCRIPTION_ID
+    export ARM_SUBSCRIPTION_ID=$SUBSCRIPTION_ID
+    ```
+
+5. Run build.sh
+    ```bash
+    ./build.sh
+    ```
+
+6. Copy the output of `api_gateway_proxy_endpoint`and `api_key_string`
+
+7. Config the copied info to chrome extension's `Setting` > `Cloud AI Settings` > `AI Foundry` > `API Management Endpoint` & `Azure API Key`
+
+    Note: It may take 5 minutes for settings to take effect.
+
+8. Delete Azure infra:
+    ```bash
+    terraform destroy -auto-approve
+    ```
+
+9. Delete Azure Project:
+    ```bash
+
+    ```
+)
 
 </details>
 
