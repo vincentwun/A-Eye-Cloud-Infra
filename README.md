@@ -33,40 +33,7 @@ For the safest and latest installation, please refer to the official guides for 
 
 ---
 
-<details>
-<summary>GCP CLI Deployment Guide</summary>
-
-1. Enter the GCP CLI directory:
-    ```bash
-    cd gcp/gcp-cli
-    chmod +x ./*.sh
-    ```
-
-2. Edit and load environment variables:
-    - Modify `1_setup_env.sh` and fill in your `BILLING_ACCOUNT_ID`.
-    - Load environment variables:
-      ```bash
-      source ./1_setup_env.sh
-      ```
-
-3. Deploy infrastructure and get the Function URL:
-    ```bash
-    ./2_deploy_infra.sh
-    ```
-    - Copy the output Function Invoke URL and fill it in the `address:` field of `api-config.yaml`.
-
-4. Create API Gateway and API Key:
-    ```bash
-    ./3_create_gateway_and_key.sh
-    ```
-    - Obtain the API Gateway Endpoint and API Key, and fill them in the Chrome extension settings.
-
-</details>
-
----
-
-<details>
-<summary>GCP Terraform Deployment Guide</summary>
+### GCP Terraform Deployment Guide
 
 1. Enter the Terraform directory:
     ```bash
@@ -74,19 +41,39 @@ For the safest and latest installation, please refer to the official guides for 
     chmod +x ./*.sh
     ```
 
-2. Edit `variables.tf` and `api-config.yaml.tftpl` to set your GCP information.
-
-3. Create resources:
+2. Login to Google Cloud:
     ```bash
-    ./1_build.sh
+    gcloud auth login --update-adc
     ```
 
-4. To remove resources:
+
+3. Set up Project ID:
     ```bash
-    ./2_destroy.sh
+    PROJECT_ID=a-eye-infra
+    export TF_VAR_project_id=$PROJECT_ID
     ```
 
-</details>
+4. Set up billing account:
+    ```bash
+    gcloud beta billing accounts list
+    Billing_Account_ID=<Your Billing Account ID>
+    ```
+
+5. Run build.sh
+    ```bash
+    ./build.sh
+    ```
+
+6. Copy the output of `api_gateway_proxy_endpoint`and `api_key_string`
+
+7. Config the copied info to chrome extension's `Setting` > `Cloud AI Settings` > `Vertex AI` > `API Gateway Endpoint` & `GCP API Key`
+
+    Note: It may take 5 minutes for settings to take effect.
+
+8. To delete GCP infra:
+    ```bash
+    terraform destroy -auto-approve
+    ```
 
 ---
 
@@ -97,17 +84,7 @@ For the safest and latest installation, please refer to the official guides for 
 
 ---
 
-<details>
-<summary>Azure CLI Deployment Guide</summary>
-
-(Coming soon)
-
-</details>
-
----
-
-<details>
-<summary>Azure Terraform Deployment Guide</summary>
+### Azure Terraform Deployment Guide
 
 (Coming soon)
 

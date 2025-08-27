@@ -1,23 +1,12 @@
 # Creates the API Gateway API container and allocates a consumer managed service
 resource "google_api_gateway_api" "api" {
-  provider  = google-beta
-  project   = var.project_id
-  api_id    = var.api_id
-
+  provider   = google-beta
+  project    = var.project_id
+  api_id     = var.api_id
   depends_on = [google_project_service.apigateway]
 }
 
-# Renders the OpenAPI by injecting the Cloud Function URL into x-google-backend.address
-data "template_file" "api_config_rendered" {
-  template = file(pathexpand("api-config.yaml.tftpl"))
-  vars = {
-    # Cloud Functions Gen2 URI comes from service_config.uri
-    function_url = google_cloudfunctions2_function.gemini_proxy.service_config.uri
-  }
-  depends_on = [google_cloudfunctions2_function.gemini_proxy]
-}
-
-# Creates an immutable API Config from the rendered OpenAPI (create-before-destroy for safe rollouts)
+# Creates an immutable API Config from the rendered OpenAPI (use templatefile to inject function_url)
 resource "google_api_gateway_api_config" "api_config" {
   provider             = google-beta
   project              = var.project_id
@@ -27,7 +16,11 @@ resource "google_api_gateway_api_config" "api_config" {
   openapi_documents {
     document {
       path     = "openapi_spec.yaml"
-      contents = base64encode(data.template_file.api_config_rendered.rendered)
+      contents = base64encode(
+        templatefile("${path.module}/api-config.yaml.tftpl", {
+          function_url = google_cloudfunctions2_function.gemini_proxy.service_config[0].uri
+        })
+      )
     }
   }
 
@@ -39,7 +32,7 @@ resource "google_api_gateway_api_config" "api_config" {
     google_project_service.apigateway,
     google_project_service.servicecontrol,
     google_project_service.servicemanagement,
-    data.template_file.api_config_rendered
+    google_cloudfunctions2_function.gemini_proxy
   ]
 }
 
@@ -48,8 +41,7 @@ resource "google_project_service" "apigw_managed" {
   project            = var.project_id
   service            = google_api_gateway_api.api.managed_service
   disable_on_destroy = false
-
-  depends_on = [google_api_gateway_api.api]
+  depends_on         = [google_api_gateway_api_config.api_config]
 }
 
 # Deploys the regional API Gateway instance bound to the above API Config

@@ -33,40 +33,7 @@
 
 ---
 
-<details>
-<summary>GCP CLI 部署教學</summary>
-
-1. 進入 GCP CLI 目錄並授權腳本：
-    ```bash
-    cd gcp/gcp-cli
-    chmod +x ./*.sh
-    ```
-
-2. 編輯並載入環境變數：
-    - 修改 `1_setup_env.sh`，填入你的 `BILLING_ACCOUNT_ID` 等必要參數。
-    - 載入環境變數：
-      ```bash
-      source ./1_setup_env.sh
-      ```
-
-3. 部署基礎建設並取得 Cloud Function URL：
-    ```bash
-    ./2_deploy_infra.sh
-    ```
-    - 複製輸出的 Function Invoke URL，填入 `api-config.yaml` 的 `address:` 欄位。
-
-4. 建立 API Gateway 及 API Key：
-    ```bash
-    ./3_create_gateway_and_key.sh
-    ```
-    - 取得 API Gateway Endpoint 與 API Key，填入 Chrome 擴充套件的設定。
-
-</details>
-
----
-
-<details>
-<summary>GCP Terraform 部署教學</summary>
+### GCP Terraform 部署指南
 
 1. 進入 Terraform 目錄：
     ```bash
@@ -74,20 +41,38 @@
     chmod +x ./*.sh
     ```
 
-2. 編輯 `variables.tf` 及 `api-config.yaml.tftpl`，設定你的 GCP 專案、區域與金鑰等資訊。
-
-3. 初始化並建立資源：
+2. 登入 Google Cloud：
     ```bash
-    ./1_build.sh
+    gcloud auth login --update-adc
     ```
 
-4. 移除資源：
+3. 設定專案 ID：
     ```bash
-    ./2_destroy.sh
+    PROJECT_ID=a-eye-infra
+    export TF_VAR_project_id=$PROJECT_ID
     ```
 
-建議：在 CI/CD 中使用 Terraform state lock、遠端 state（如 GCS）並將敏感參數放入 Secret Manager 或 CI 變數。
-</details>
+4. 設定帳單帳戶：
+    ```bash
+    gcloud beta billing accounts list
+    Billing_Account_ID=<您的帳單帳戶 ID>
+    ```
+
+5. 執行 build.sh：
+    ```bash
+    ./build.sh
+    ```
+
+6. 複製 `api_gateway_proxy_endpoint` 和 `api_key_string` 的輸出。
+
+7. 將複製的資訊設定到 Chrome 擴充功能的「設定」>「Cloud AI Settings」>「Vertex AI」>「API Gateway Endpoint」和「GCP API Key」。
+
+    注意：設定可能需要 5 分鐘才能生效。
+
+8. 刪除 GCP 基礎架構：
+    ```bash
+    terraform destroy -auto-approve
+    ```
 
 ---
 
@@ -95,13 +80,6 @@
 
 ### Azure 架構圖
 ![Azure Infrastructure](images/azure_infra.png)
-
----
-
-<details>
-<summary>Azure CLI 指南</summary>
-（逐步補齊）
-</details>
 
 ---
 

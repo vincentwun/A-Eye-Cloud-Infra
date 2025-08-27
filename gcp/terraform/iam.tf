@@ -2,6 +2,7 @@
 resource "google_service_account" "fn_sa" {
   account_id   = "gemini-proxy-fn-sa"
   display_name = "Gemini Proxy Function SA"
+  depends_on   = [google_project_service.iam]
 }
 
 # Vertex AI minimal access for Function SA: allow invoke Vertex AI (roles/aiplatform.user)
@@ -12,23 +13,21 @@ resource "google_project_iam_member" "fn_sa_vertex_ai_user" {
 
   depends_on = [
     google_project_service.aiplatform,
-    google_project_service.iam
+    google_service_account.fn_sa
   ]
 }
 
 # Grant API Gateway Service Agent resource-level Run Invoker on the CF Gen2 underlying Cloud Run service
-# Note: resource-level binding (not project-wide) to follow least-privilege
 resource "google_cloud_run_v2_service_iam_member" "fn_allow_apigw" {
   project  = var.project_id
   location = var.region
-  name     = google_cloudfunctions2_function.gemini_proxy.service_config.service
+  name     = google_cloudfunctions2_function.gemini_proxy.service_config[0].service
   role     = "roles/run.invoker"
   member   = "serviceAccount:service-${data.google_project.project.number}@gcp-sa-apigateway.iam.gserviceaccount.com"
 
   depends_on = [
     google_project_service.run,
     google_project_service.apigateway,
-    google_project_service.iam,
     google_cloudfunctions2_function.gemini_proxy
   ]
 }
@@ -41,7 +40,6 @@ resource "google_project_iam_member" "apigw_sa_serviceusage_consumer" {
 
   depends_on = [
     google_project_service.apigateway,
-    google_project_service.serviceusage,
-    google_project_service.iam
+    google_project_service.serviceusage
   ]
 }
