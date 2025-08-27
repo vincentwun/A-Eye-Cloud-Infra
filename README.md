@@ -90,7 +90,7 @@ For the safest and latest installation, please refer to the official guides for 
 
 ### Azure Terraform Deployment Guide
 
-(1. Enter the Terraform directory:
+1. Enter the Terraform directory:
     ```bash
     cd azure/terraform
     chmod +x ./*.sh
@@ -129,9 +129,6 @@ For the safest and latest installation, please refer to the official guides for 
     ```bash
 
     ```
-)
-
-</details>
 
 ---
 
