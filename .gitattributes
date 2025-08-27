@@ -1,1 +1,2 @@
 *.tf linguist-language=HCL
+images/*.html linguist-vendored
