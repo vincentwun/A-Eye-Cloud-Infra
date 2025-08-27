@@ -70,9 +70,14 @@ For the safest and latest installation, please refer to the official guides for 
 
     Note: It may take 5 minutes for settings to take effect.
 
-8. To delete GCP infra:
+8. Delete GCP infra:
     ```bash
     terraform destroy -auto-approve
+    ```
+
+9. Delete GCP Project:
+    ```bash
+    gcloud projects delete $PROJECT_ID
     ```
 
 ---

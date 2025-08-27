@@ -74,6 +74,11 @@
     terraform destroy -auto-approve
     ```
 
+9. 刪除 GCP 專案:
+    ```bash
+    gcloud projects delete $PROJECT_ID
+    ```
+
 ---
 
 ## Azure
