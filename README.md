@@ -37,7 +37,7 @@ For the safest and latest installation, please refer to the official guides for 
 
 1. Enter the Terraform directory:
     ```bash
-    cd gcp/terraform
+    cd gcp
     chmod +x ./*.sh
     ```
 
@@ -92,7 +92,7 @@ For the safest and latest installation, please refer to the official guides for 
 
 1. Enter the Terraform directory:
     ```bash
-    cd azure/terraform
+    cd azure
     chmod +x ./*.sh
     ```
 
@@ -109,25 +109,20 @@ For the safest and latest installation, please refer to the official guides for 
     export ARM_SUBSCRIPTION_ID=$SUBSCRIPTION_ID
     ```
 
-5. Run build.sh
+4. Run build.sh
     ```bash
     ./build.sh
     ```
 
-6. Copy the output of `api_gateway_proxy_endpoint`and `api_key_string`
+5. Copy the output
 
-7. Config the copied info to chrome extension's `Setting` > `Cloud AI Settings` > `AI Foundry` > `API Management Endpoint` & `Azure API Key`
+6. Config the copied info to chrome extension's `Setting` > `Cloud AI Settings` > `AI Foundry` > `API Management Endpoint` & `Azure API Key`
 
     Note: It may take 5 minutes for settings to take effect.
 
-8. Delete Azure infra:
+7. Delete Azure infra:
     ```bash
     terraform destroy -auto-approve
-    ```
-
-9. Delete Azure Project:
-    ```bash
-
     ```
 
 ---
