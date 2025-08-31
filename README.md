@@ -1,18 +1,10 @@
 # A-Eye Web Chat Assistant Cloud Infra
 
 This project provides infrastructure code and deployment guides for the [A-Eye Web Chat Assistant](https://github.com/vincentwun/A-Eye-Web-Chat-Assistant) Chrome extension on public cloud platforms.  
-You can quickly deploy serverless backends, API Gateways, and related resources using mainstream clouds such as Google Cloud Platform (GCP) and Microsoft Azure.
+
+You can quickly deploy serverless backends, API Gateway, Cloud Functions, and Vertex AI integration using Google Cloud Platform (GCP).
 
 [Read In Chinese](./README.zh.md)
-
----
-
-## Features
-
-- **GCP Infrastructure**: Deployment scripts for API Gateway, Cloud Functions, and Vertex AI integration.
-- **Azure Infrastructure**: Deployment scripts for Azure API Management, Azure Functions, and Azure AI Foundry.
-- **Secure API Proxy**: Securely proxies requests between the Chrome extension and cloud AI models.
-- **Key Management**: Guidance for secure management of API keys and access credentials.
 
 ---
 
@@ -78,21 +70,6 @@ For the safest and latest installation, please refer to the official guides for 
     ```bash
     gcloud projects delete $PROJECT_ID
     ```
-
----
-
-## Azure
-
-### Azure Architecture
-(Coming Soon)
-
----
-
-### Azure Terraform Deployment Guide
-
-(Coming Soon)
-
-</details>
 
 ---
 
