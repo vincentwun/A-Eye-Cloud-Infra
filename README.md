@@ -12,7 +12,6 @@ You can quickly deploy serverless backends, API Gateway, Cloud Functions, and Ve
 
 For the safest and latest installation, please refer to the official guides for CLI tools:
 
-- [Azure CLI](https://learn.microsoft.com/zh-tw/cli/azure/install-azure-cli-linux?view=azure-cli-latest&pivots=apt)
 - [Google Cloud CLI (gcloud)](https://cloud.google.com/sdk/docs/install?hl=zh-tw)
 - [Terraform](https://developer.hashicorp.com/terraform/install#linux)
 
