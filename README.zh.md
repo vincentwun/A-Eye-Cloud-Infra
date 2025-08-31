@@ -59,18 +59,14 @@
 
     注意：設定可能需要 5 分鐘才能生效。
 
-8. 刪除 GCP 基礎架構：
+### 刪除 GCP 架構
+
+1. 刪除 GCP 基礎架構：
     ```bash
     terraform destroy -auto-approve
     ```
 
-9. 刪除 GCP 專案:
+2. 刪除 GCP 專案:
     ```bash
     gcloud projects delete $PROJECT_ID
     ```
-
----
-
-## 授權
-
-本專案採用 MIT License，詳情請參閱 [LICENSE](./LICENSE)。
